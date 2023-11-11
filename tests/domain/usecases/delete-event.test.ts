@@ -1,10 +1,10 @@
 class DeleteEvent {
-  constructor(
+  constructor (
     private readonly loadGroupRepository: LoadGroupRepository
-  ) {}
+  ) { }
 
-  async perform({ id }: { id: string, userId: string }): Promise<void> {
-    await this.loadGroupRepository.load({ eventId: id  })
+  async perform ({ id }: { id: string, userId: string }): Promise<void> {
+    await this.loadGroupRepository.load({ eventId: id })
   }
 }
 
@@ -22,12 +22,24 @@ class LoadGroupRepositoryMock implements LoadGroupRepository {
   }
 }
 
+type SutTypes = { sut: DeleteEvent, loadGroupRepository: LoadGroupRepositoryMock }
+
+const makeSut = (): SutTypes => {
+  const loadGroupRepository = new LoadGroupRepositoryMock()
+  const sut = new DeleteEvent(loadGroupRepository)
+
+  return {
+    sut,
+    loadGroupRepository
+  }
+}
+
 describe('DeleteEvent', () => {
-  it('should get group data', async() => {
-    const id = 'any_event_id'
-    const userId = 'any_user_id'
-    const loadGroupRepository = new LoadGroupRepositoryMock()
-    const sut = new DeleteEvent(loadGroupRepository)
+  const id = 'any_event_id'
+  const userId = 'any_user_id'
+
+  it('should get group data', async () => {
+    const { sut, loadGroupRepository } = makeSut()
 
     await sut.perform({ id, userId })
 
