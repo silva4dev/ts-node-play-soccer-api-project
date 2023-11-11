@@ -21,4 +21,4 @@
 
 
 # Code smells
-* Pegando usando uma propriedade de teste em um codigo de produção
+* Usando uma propriedade de teste em um codigo de produção
