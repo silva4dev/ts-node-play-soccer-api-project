@@ -12,7 +12,6 @@ class DeleteEvent {
     if (group.users.find((user) => user.id === userId)?.permission === 'user') throw new Error()
 
     await this.deleteEventRepository.delete({ id })
-
     await this.deleteMatchRepository.delete({ eventId: id })
   }
 }
