@@ -24,7 +24,7 @@ type GroupUser = {
   permission: 'owner' | 'admin' | 'user'
 }
 
-class LoadGroupRepositoryMock implements LoadGroupRepository {
+class LoadGroupRepositorySpy implements LoadGroupRepository {
   eventId?: string
   callsCount = 0
   output?: Group = {
@@ -39,10 +39,10 @@ class LoadGroupRepositoryMock implements LoadGroupRepository {
   }
 }
 
-type SutTypes = { sut: DeleteEvent, loadGroupRepository: LoadGroupRepositoryMock }
+type SutTypes = { sut: DeleteEvent, loadGroupRepository: LoadGroupRepositorySpy }
 
 const makeSut = (): SutTypes => {
-  const loadGroupRepository = new LoadGroupRepositoryMock()
+  const loadGroupRepository = new LoadGroupRepositorySpy()
   const sut = new DeleteEvent(loadGroupRepository)
 
   return {
