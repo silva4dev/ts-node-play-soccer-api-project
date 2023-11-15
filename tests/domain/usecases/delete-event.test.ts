@@ -1,3 +1,5 @@
+import type { Group } from '@/src/domain/models'
+
 class DeleteEvent {
   constructor (
     private readonly loadGroupRepository: LoadGroupRepository,
@@ -26,15 +28,6 @@ interface DeleteEventRepository {
 
 interface DeleteMatchRepository {
   delete: (input: { eventId: string }) => Promise<void>
-}
-
-type Group = {
-  users: GroupUser[]
-}
-
-type GroupUser = {
-  id: string
-  permission: 'owner' | 'admin' | 'user'
 }
 
 class LoadGroupRepositorySpy implements LoadGroupRepository {
