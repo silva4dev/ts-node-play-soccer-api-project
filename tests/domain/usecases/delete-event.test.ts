@@ -1,4 +1,5 @@
 import type { Group } from '@/src/domain/models'
+import type { DeleteEventRepository, LoadGroupRepository, DeleteMatchRepository } from '@/src/domain/repositories'
 
 class DeleteEvent {
   constructor (
@@ -16,18 +17,6 @@ class DeleteEvent {
     await this.deleteEventRepository.delete({ id })
     await this.deleteMatchRepository.delete({ eventId: id })
   }
-}
-
-interface LoadGroupRepository {
-  load: (input: { eventId: string }) => Promise<Group | undefined>
-}
-
-interface DeleteEventRepository {
-  delete: (input: { id: string }) => Promise<void>
-}
-
-interface DeleteMatchRepository {
-  delete: (input: { eventId: string }) => Promise<void>
 }
 
 class LoadGroupRepositorySpy implements LoadGroupRepository {
